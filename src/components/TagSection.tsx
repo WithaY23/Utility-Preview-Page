@@ -5,7 +5,7 @@ import {
 } from '../data/tags'
 import type { Tag } from '../types/tag'
 import { PreviewGrid } from './PreviewGrid'
-
+import { useNavigate } from 'react-router-dom'
 type TagSectionProps = {
   tag: Tag
 }
@@ -13,7 +13,9 @@ type TagSectionProps = {
 export function TagSection({ tag }: TagSectionProps) {
   const [page, setPage] = useState(0)
   const headingId = `${tag.id}-heading`
+  const navigate = useNavigate()
 
+  
   const cappedPreviews = tag.previews.slice(
     0,
     HOME_PREVIEWS_PER_PAGE * HOME_MAX_PREVIEW_PAGES,
@@ -44,7 +46,7 @@ export function TagSection({ tag }: TagSectionProps) {
             type="button"
             className="tag-section__see-all"
             aria-label={`See all previews in ${tag.name}`}
-            onClick={() => console.log(`Clicked See All Previews Home Page ${tag.name}`)} // Pass your navigation/expand handler here
+            onClick={() => {console.log(`Clicked See All Previews Home Page ${tag.name}`); navigate(`/view/${tag.name}`)}} // Pass your navigation/expand handler here
           >
             <span>See All Previews</span>
 
