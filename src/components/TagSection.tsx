@@ -46,7 +46,7 @@ export function TagSection({ tag }: TagSectionProps) {
             type="button"
             className="tag-section__see-all"
             aria-label={`See all previews in ${tag.name}`}
-            onClick={() => {console.log(`Clicked See All Previews Home Page ${tag.name}`); navigate(`/view/${tag.name}`)}} // Pass your navigation/expand handler here
+            onClick={() => navigate(`/view#${tag.name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-')}`)}
           >
             <span>See All Previews</span>
 

@@ -1,13 +1,18 @@
+import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { TAGS } from '../data/tags'
 import HomePage from '../pages/HomePage'
-import ViewTags from '../pages/ViewTags'
+import SearchTags from '../pages/SearchTags'
+import type { Tag } from '../types/tag'
 
 function App() {
+  const [tags, setTags] = useState<Tag[]>(TAGS)
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/view/:tags" element={<ViewTags />} />
+        <Route path="/" element={<HomePage tags={tags} />} />
+        <Route path="/view" element={<SearchTags tags={tags} setTags={setTags} />} />
       </Routes>
     </BrowserRouter>
   )

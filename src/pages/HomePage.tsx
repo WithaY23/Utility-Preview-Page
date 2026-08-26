@@ -1,14 +1,18 @@
-import {
-  shouldShowSeeAllTags,
-  TAGS,
-  tagsForHome,
-} from '../data/tags'
+import { shouldShowSeeAllTags, tagsForHome } from '../data/tags'
 import { TagSection } from '../components/TagSection'
 import '../styles/preview.css'
 import '../styles/HomePage.css'
 import NavBar from './NavBar'
-function HomePage() {
-  const homeTags = tagsForHome(TAGS)
+import type { Tag } from '../types/tag'
+import { useNavigate } from 'react-router-dom'
+
+type HomePageProps = {
+  tags: Tag[]
+}
+
+function HomePage({ tags }: HomePageProps) {
+  const homeTags = tagsForHome(tags)
+  const navigate = useNavigate()
 
   return (
     <div className="home">
@@ -22,16 +26,16 @@ function HomePage() {
         <TagSection key={tag.id} tag={tag} />
       ))}
 
-      {shouldShowSeeAllTags(TAGS.length) ? (
+      {shouldShowSeeAllTags(tags.length) ? (
         <button
           type="button"
           className="see-all-tags"
-          // TODO: all-tags view — no extra page yet; placeholder only.
-          onClick={() => undefined}
+          onClick={() => navigate('/view')}
         >
           See All Tags
         </button>
       ) : null}
+
     </div>
   )
 }
