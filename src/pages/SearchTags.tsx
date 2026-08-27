@@ -54,7 +54,7 @@ function SearchTags({ tags }: SearchTagsProps) {
                   <span>{tag.name}</span>
                   <span className={`search-tags__chevron${isExpanded ? ' search-tags__chevron--open' : ''}`} aria-hidden="true" />
                 </button>
-                {isExpanded ? <PreviewGrid previews={tag.previews} /> : null}
+                {isExpanded ? <PreviewGrid previews={tag.previews} showCreateButton /> : null}
               </section>
             )
           })}

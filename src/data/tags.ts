@@ -128,7 +128,7 @@ export const TAGS: Tag[] = [
   {
     id: 'tag-docs2',
     name: 'Docs2',
-    previews: docsPreviews
+    previews: docsPreviews.slice(0, 6),
   }
 ]
 

@@ -26,12 +26,29 @@ export function TagSection({ tag }: TagSectionProps) {
     page * HOME_PREVIEWS_PER_PAGE + HOME_PREVIEWS_PER_PAGE,
   )
   const hasNextPage = page + 1 < currentPageCount
+  const hasPrevPage = page > 0
   const seeCompleteTag = tag.previews.length > HOME_PREVIEWS_PER_PAGE *HOME_MAX_PREVIEW_PAGES
+  const showCreateButton = tag.previews.length < HOME_PREVIEWS_PER_PAGE * HOME_MAX_PREVIEW_PAGES
   return (
     <section className="tag-section" aria-labelledby={headingId}>
       <h2 id={headingId}>{tag.name}</h2>
       <div className="tag-section__row">
-        <PreviewGrid previews={visiblePreviews} />
+        {
+          hasPrevPage ? (
+            <button
+            type="button"
+            className="tag-section__arrow"
+            aria-label={`Previous previews in ${tag.name}`}
+            onClick={() => setPage((current) => current -1 )}
+          >
+            <span
+              className="tag-section__chevron tag-section__chevron--previous"
+              aria-hidden="true"
+            />
+          </button>
+          ): null
+        }
+        <PreviewGrid previews={visiblePreviews} showCreateButton={showCreateButton && !hasNextPage} />
         {hasNextPage ? (
           <button
             type="button"
@@ -49,7 +66,6 @@ export function TagSection({ tag }: TagSectionProps) {
             onClick={() => navigate(`/view#${tag.name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-')}`)}
           >
             <span>See All Previews</span>
-
           </button>
         ) : null}
       </div>

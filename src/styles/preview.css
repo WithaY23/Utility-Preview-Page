@@ -13,6 +13,54 @@
   min-width: 0;
 }
 
+.preview-grid__create {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: var(--preview-ratio);
+  margin: 0;
+  padding: 0;
+  border: var(--sds-size-stroke-border) solid var(--text-p1);
+  border-radius: var(--sds-size-radius-200);
+  background: var(--bg);
+  color: var(--text-p1);
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.preview-grid__create:hover,
+.preview-grid__create:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.preview-grid__create:focus-visible {
+  outline: 2px solid var(--text-p1);
+  outline-offset: 2px;
+}
+
+.preview-grid__plus {
+  position: relative;
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.preview-grid__plus::before,
+.preview-grid__plus::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2.25rem;
+  height: 2px;
+  background: currentColor;
+  content: '';
+  transform: translate(-50%, -50%);
+}
+
+.preview-grid__plus::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
 .tag-section {
   min-width: 0;
 }
@@ -56,6 +104,39 @@
   border-top: 3px solid var(--text-p1);
   border-right: 3px solid var(--text-p1);
   transform: rotate(45deg) translateX(-2px);
+}
+
+.tag-section__chevron--previous {
+  transform: rotate(-135deg) translateX(-2px);
+}
+
+.tag-section__see-all {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 140px;
+  height: 100px;
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  border: var(--sds-size-stroke-border) solid var(--sds-color-border-brand-default);
+  border-radius: var(--sds-size-radius-200);
+  background: #1a1a1a;
+  color: var(--text-p1);
+  font: inherit;
+  font-size: 1rem;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+.tag-section__see-all:hover,
+.tag-section__see-all:focus-visible {
+  box-shadow: var(--shadow);
+}
+
+.tag-section__see-all:focus-visible {
+  outline: 2px solid var(--text-p1);
+  outline-offset: 2px;
 }
 
 .see-all-tags {
