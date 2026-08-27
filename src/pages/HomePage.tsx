@@ -4,7 +4,9 @@ import '../styles/preview.css'
 import '../styles/HomePage.css'
 import NavBar from './NavBar'
 import type { Tag } from '../types/tag'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+
 
 type HomePageProps = {
   tags: Tag[]
@@ -12,7 +14,7 @@ type HomePageProps = {
 
 function HomePage({ tags }: HomePageProps) {
   const homeTags = tagsForHome(tags)
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   return (
     <div className="home">
@@ -27,13 +29,12 @@ function HomePage({ tags }: HomePageProps) {
       ))}
 
       {shouldShowSeeAllTags(tags.length) ? (
-        <button
-          type="button"
+        <Link
+          to="/view"
           className="see-all-tags"
-          onClick={() => navigate('/view')}
         >
           See All Tags
-        </button>
+        </Link>
       ) : null}
 
     </div>
