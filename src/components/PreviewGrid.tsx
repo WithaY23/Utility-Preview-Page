@@ -19,9 +19,8 @@ export function PreviewGrid({ previews, showCreateButton = false }: PreviewGridP
       ))}
       {showCreateButton ? (
         <li className="preview-grid__item">
-
           <Link
-            to="/create"
+            to="/create-preview-1"
             className="preview-grid__create"
             aria-label="Create a new preview"
             >

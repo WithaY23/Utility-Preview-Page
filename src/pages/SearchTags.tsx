@@ -20,12 +20,13 @@ function SearchTags({ tags }: SearchTagsProps) {
 
   useEffect(() => {
     const hash = window.location.hash.slice(1)
-    const matchingTag = tags.find((tag) => tagAnchorId(tag.name) === hash)
+    const matchingTagIndex = tags.findIndex((tag) => tagAnchorId(tag.name) === hash)
+    const matchingTag = matchingTagIndex !== -1 ? tags[matchingTagIndex] : null;
 
     if (matchingTag) {
       requestAnimationFrame(() => {
         setExpandedTagId(matchingTag.id)
-        document.getElementById(hash)?.scrollIntoView({ block: 'start' })
+        document.getElementById(String(matchingTagIndex))?.scrollIntoView({ block: 'start' })
       })
     }
   }, [tags])
@@ -36,12 +37,12 @@ function SearchTags({ tags }: SearchTagsProps) {
       <main className="search-tags__content" aria-labelledby="search-tags-title">
         <h1 id="search-tags-title">Search Tags</h1>
         <div className="search-tags__list">
-          {tags.map((tag) => {
+          {tags.map((tag, tagIndex) => {
             const isExpanded = tag.id === expandedTagId
             const sectionId = tagAnchorId(tag.name)
 
             return (
-              <section key={tag.id} id={sectionId} className="search-tags__section">
+              <section key={tag.id} id={String(tagIndex)} className="search-tags__section">
                 <button
                   type="button"
                   className="search-tags__heading"
