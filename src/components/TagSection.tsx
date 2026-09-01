@@ -12,7 +12,8 @@ type TagSectionProps = {
 
 export function TagSection({ tag }: TagSectionProps) {
   const [page, setPage] = useState(0)
-  const headingId = `${tag.id}-heading`
+  const tagSlug = tag.name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-')
+  const headingId = `${tagSlug}-heading`
   const navigate = useNavigate()
 
   

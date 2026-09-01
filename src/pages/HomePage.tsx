@@ -25,7 +25,7 @@ function HomePage({ tags }: HomePageProps) {
       </section>
 
       {homeTags.map((tag) => (
-        <TagSection key={tag.id} tag={tag} />
+        <TagSection key={tag.name} tag={tag} />
       ))}
 
       {shouldShowSeeAllTags(tags.length) ? (

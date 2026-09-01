@@ -1,0 +1,99 @@
+.create-tag-page {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem 3rem;
+  /* background: var(--social-bg); */
+  box-sizing: border-box;
+}
+
+.create-tag-card {
+  width: min(100%, 42rem);
+  background: rgba(17, 31, 58, 0.86);
+  border-radius: 1.125rem;
+  padding: 2.25rem 2.1rem 1.8rem;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.create-tag-card h1 {
+  margin: 0 0 1.5rem;
+  text-align: center;
+  font-size: clamp(1.7rem, 2vw, 2.5rem);
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #f1f5f9;
+}
+
+.create-tag-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.create-tag-form__label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(227, 232, 242, 0.8);
+}
+
+.create-tag-form__input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgba(209, 214, 222, 0.26);
+  border-radius: 0.7rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: #f8fafc;
+  font: inherit;
+  font-size: 0.95rem;
+  padding: 0.9rem 0.95rem;
+  min-height: 2.9rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.create-tag-form__input::placeholder {
+  color: rgba(213, 219, 230, 0.76);
+}
+
+.create-tag-form__input:focus {
+  border-color: rgba(191, 219, 254, 0.9);
+  /* box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.18); */
+}
+
+.create-tag-form__button {
+  align-self: flex-end;
+  margin-top: 0.4rem;
+  border: 0;
+  border-radius: 0.6rem;
+  background: #c8d2df;
+  color: #0f172a;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.create-tag-form__button:hover {
+  opacity: 0.96;
+}
+
+.create-tag-form__button:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 32rem) {
+  .create-tag-page {
+    padding: 1.25rem;
+  }
+
+  .create-tag-card {
+    padding: 1.5rem 1.1rem 1.3rem;
+  }
+}

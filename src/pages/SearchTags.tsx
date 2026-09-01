@@ -16,7 +16,7 @@ function tagAnchorId(name: string) {
 }
 
 function SearchTags({ tags }: SearchTagsProps) {
-  const [expandedTagId, setExpandedTagId] = useState<string | undefined>(tags[0]?.id)
+  const [expandedTagSlug, setExpandedTagSlug] = useState<string | undefined>(tags[0] ? tagAnchorId(tags[0].name) : undefined)
 
   useEffect(() => {
     const hash = window.location.hash.slice(1)
@@ -25,7 +25,7 @@ function SearchTags({ tags }: SearchTagsProps) {
 
     if (matchingTag) {
       requestAnimationFrame(() => {
-        setExpandedTagId(matchingTag.id)
+        setExpandedTagSlug(tagAnchorId(matchingTag.name))
         document.getElementById(String(matchingTagIndex))?.scrollIntoView({ block: 'start' })
       })
     }
@@ -38,17 +38,17 @@ function SearchTags({ tags }: SearchTagsProps) {
         <h1 id="search-tags-title">Search Tags</h1>
         <div className="search-tags__list">
           {tags.map((tag, tagIndex) => {
-            const isExpanded = tag.id === expandedTagId
             const sectionId = tagAnchorId(tag.name)
+            const isExpanded = sectionId === expandedTagSlug
 
             return (
-              <section key={tag.id} id={String(tagIndex)} className="search-tags__section">
+              <section key={tag.name} id={String(tagIndex)} className="search-tags__section">
                 <button
                   type="button"
                   className="search-tags__heading"
                   aria-expanded={isExpanded}
                   onClick={() => {
-                    setExpandedTagId(isExpanded ? undefined : tag.id)
+                    setExpandedTagSlug(isExpanded ? undefined : sectionId)
                     window.history.replaceState(null, '', `/view#${sectionId}`)
                   }}
                 >
