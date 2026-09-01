@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { TAGS } from '../data/tags'
 import HomePage from '../pages/HomePage'
 import SearchTags from '../pages/SearchTags'
+import CreateTagPage from '../pages/CreateTagPage'
 import type { Tag } from '../types/tag'
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage tags={tags} />} />
         <Route path="/view" element={<SearchTags tags={tags} setTags={setTags} />} />
+        <Route path="/create-tag" element={<CreateTagPage />} />
       </Routes>
     </BrowserRouter>
   )
