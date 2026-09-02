@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import type { Dispatch, SetStateAction } from 'react'
+// import type { Dispatch, SetStateAction } from 'react'
 import { PreviewGrid } from '../components/PreviewGrid'
 import type { Tag } from '../types/tag'
 import NavBar from './NavBar'
@@ -7,27 +7,36 @@ import '../styles/SearchTags.css'
 
 type SearchTagsProps = {
   tags: Tag[]
-  setTags: Dispatch<SetStateAction<Tag[]>>
 }
 
 // Find css id's in this format Lowercase slug
-function tagAnchorId(name: string) {
+export function tagAnchorId(name: string) {
   return name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-')
 }
 
 function SearchTags({ tags }: SearchTagsProps) {
-  const [expandedTagSlug, setExpandedTagSlug] = useState<string | undefined>(tags[0] ? tagAnchorId(tags[0].name) : undefined)
+  const [expandedTagSlug, setExpandedTagSlug] = useState<string | undefined>(undefined)
 
   useEffect(() => {
-    const hash = window.location.hash.slice(1)
-    const matchingTagIndex = tags.findIndex((tag) => tagAnchorId(tag.name) === hash)
-    const matchingTag = matchingTagIndex !== -1 ? tags[matchingTagIndex] : null;
+    if (tags.length === 0) {
+      setExpandedTagSlug(undefined)
+      return
+    }
 
-    if (matchingTag) {
-      requestAnimationFrame(() => {
-        setExpandedTagSlug(tagAnchorId(matchingTag.name))
-        document.getElementById(String(matchingTagIndex))?.scrollIntoView({ block: 'start' })
-      })
+    const hash = window.location.hash.slice(1)
+    
+    if (hash) {
+      const matchingTagIndex = tags.findIndex((tag) => tagAnchorId(tag.name) === hash)
+      const matchingTag = matchingTagIndex !== -1 ? tags[matchingTagIndex] : null;
+
+      if (matchingTag) {
+        requestAnimationFrame(() => {
+          setExpandedTagSlug(tagAnchorId(matchingTag.name))
+          document.getElementById(String(matchingTagIndex))?.scrollIntoView({ block: 'start' })
+        })
+      }
+    } else {
+      setExpandedTagSlug(tagAnchorId(tags[0].name))
     }
   }, [tags])
 

@@ -6,13 +6,14 @@ import {
 import type { Tag } from '../types/tag'
 import { PreviewGrid } from './PreviewGrid'
 import { useNavigate } from 'react-router-dom'
+import { tagAnchorId } from '../pages/SearchTags'
 type TagSectionProps = {
   tag: Tag
 }
 
 export function TagSection({ tag }: TagSectionProps) {
   const [page, setPage] = useState(0)
-  const tagSlug = tag.name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-')
+  const tagSlug = tagAnchorId(tag.name)
   const headingId = `${tagSlug}-heading`
   const navigate = useNavigate()
 
@@ -64,7 +65,7 @@ export function TagSection({ tag }: TagSectionProps) {
             type="button"
             className="tag-section__see-all"
             aria-label={`See all previews in ${tag.name}`}
-            onClick={() => navigate(`/view#${tag.name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-')}`)}
+            onClick={() => navigate(`/view#${tagAnchorId(tag.name)}`)}
           >
             <span>See All Previews</span>
           </button>

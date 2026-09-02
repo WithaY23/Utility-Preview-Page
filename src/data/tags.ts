@@ -116,17 +116,14 @@ const toolsPreviews: Preview[] = [
 
 export const TAGS: Tag[] = [
   {
-    id: 'tag-tools',
     name: 'Tools',
     previews: toolsPreviews,
   },
   {
-    id: 'tag-docs',
     name: 'Docs',
     previews: docsPreviews,
   },
   {
-    id: 'tag-docs2',
     name: 'Docs2',
     previews: docsPreviews.slice(0, 6),
   }

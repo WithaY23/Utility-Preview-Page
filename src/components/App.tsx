@@ -13,8 +13,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage tags={tags} />} />
-        <Route path="/view" element={<SearchTags tags={tags} setTags={setTags} />} />
-        <Route path="/create-tag" element={<CreateTagPage />} />
+        <Route path="/view" element={<SearchTags tags={tags} />} />
+        <Route path="/create-tag" element={<CreateTagPage tags={tags} setTags={setTags}/>} />
       </Routes>
     </BrowserRouter>
   )
