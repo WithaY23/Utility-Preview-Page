@@ -4,6 +4,7 @@ import { TAGS } from '../data/tags'
 import HomePage from '../pages/HomePage'
 import SearchTags from '../pages/SearchTags'
 import CreateTagPage from '../pages/CreateTagPage'
+import CreatePreviewPage from '../pages/CreatePreviewPage'
 import type { Tag } from '../types/tag'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<HomePage tags={tags} />} />
         <Route path="/view" element={<SearchTags tags={tags} />} />
         <Route path="/create-tag" element={<CreateTagPage tags={tags} setTags={setTags}/>} />
+        <Route path="/create-preview" element={<CreatePreviewPage />} />
       </Routes>
     </BrowserRouter>
   )
