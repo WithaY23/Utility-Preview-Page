@@ -7,4 +7,6 @@ export type Preview = {
   backgroundImage?: string
   /** Optional shell tint. Falls back to Figma F1.1 (#6C757D). */
   backgroundColor?: string
+  /** Optional description box background color. Falls back to #6C757D. */
+  descriptionBgColor?: string
 }
