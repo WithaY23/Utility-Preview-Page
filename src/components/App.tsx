@@ -16,7 +16,10 @@ function App() {
         <Route path="/" element={<HomePage tags={tags} />} />
         <Route path="/view" element={<SearchTags tags={tags} />} />
         <Route path="/create-tag" element={<CreateTagPage tags={tags} setTags={setTags}/>} />
-        <Route path="/create-preview" element={<CreatePreviewPage />} />
+        <Route
+          path="/tags/:tagId/create-preview"
+          element={<CreatePreviewPage tags={tags} setTags={setTags} />}
+        />
       </Routes>
     </BrowserRouter>
   )

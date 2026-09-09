@@ -6,7 +6,7 @@ import {
 import type { Tag } from '../types/tag'
 import { PreviewGrid } from './PreviewGrid'
 import { useNavigate } from 'react-router-dom'
-import { tagAnchorId } from '../pages/SearchTags'
+import { tagAnchorId } from  '../util'
 type TagSectionProps = {
   tag: Tag
 }
@@ -50,7 +50,11 @@ export function TagSection({ tag }: TagSectionProps) {
           </button>
           ): null
         }
-        <PreviewGrid previews={visiblePreviews} showCreateButton={showCreateButton && !hasNextPage} />
+        <PreviewGrid
+          previews={visiblePreviews}
+          tagId={tag.id}
+          showCreateButton={showCreateButton && !hasNextPage}
+        />
         {hasNextPage ? (
           <button
             type="button"

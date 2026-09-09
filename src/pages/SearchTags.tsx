@@ -4,24 +4,20 @@ import { PreviewGrid } from '../components/PreviewGrid'
 import type { Tag } from '../types/tag'
 import NavBar from './NavBar'
 import '../styles/SearchTags.css'
-
+import { tagAnchorId } from '../util'
 type SearchTagsProps = {
   tags: Tag[]
 }
 
-// Find css id's in this format Lowercase slug
-export function tagAnchorId(name: string) {
-  return name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-')
-}
 
 function SearchTags({ tags }: SearchTagsProps) {
   const [expandedTagSlug, setExpandedTagSlug] = useState<string | undefined>(undefined)
 
   useEffect(() => {
-    if (tags.length === 0) {
-      setExpandedTagSlug(undefined)
-      return
-    }
+    // if (tags.length === 0) {
+    //   setExpandedTagSlug(undefined)
+    //   return
+    // }
 
     const hash = window.location.hash.slice(1)
     
@@ -36,7 +32,10 @@ function SearchTags({ tags }: SearchTagsProps) {
         })
       }
     } else {
-      setExpandedTagSlug(tagAnchorId(tags[0].name))
+      requestAnimationFrame(() => {
+          setExpandedTagSlug(tagAnchorId(tags[0].name))
+          document.getElementById(String(0))?.scrollIntoView({ block: 'start' })
+        })    
     }
   }, [tags])
 
@@ -64,7 +63,9 @@ function SearchTags({ tags }: SearchTagsProps) {
                   <span>{tag.name}</span>
                   <span className={`search-tags__chevron${isExpanded ? ' search-tags__chevron--open' : ''}`} aria-hidden="true" />
                 </button>
-                {isExpanded ? <PreviewGrid previews={tag.previews} showCreateButton /> : null}
+                {isExpanded ? (
+                  <PreviewGrid previews={tag.previews} tagId={tag.id} showCreateButton />
+                ) : null}
               </section>
             )
           })}

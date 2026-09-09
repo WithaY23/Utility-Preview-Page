@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import '../styles/CreateTagPage.css'
 import NavBar from './NavBar'
 import type { Tag } from '../types/tag'
-import { tagAnchorId } from './SearchTags'
+import { tagAnchorId } from '../util'
+
 
 type CreateTagProps = {
   tags: Tag[],
@@ -17,6 +18,7 @@ function CreateTagPage({tags, setTags}: CreateTagProps) {
     e.preventDefault()
 
     const newTag: Tag = {
+      id: String(tags.length+1),
       name: tagName,
       previews: [],
     }

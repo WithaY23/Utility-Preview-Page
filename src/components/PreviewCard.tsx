@@ -9,6 +9,9 @@ export function PreviewCard({ preview }: PreviewCardProps) {
   const shellStyle: CSSProperties = {
     backgroundColor: preview.backgroundColor,
   }
+  const descrBG: CSSProperties = {
+    backgroundColor: preview.descriptionBgColor ? preview.descriptionBgColor : '',
+  }
 
   return (
     <a
@@ -30,7 +33,7 @@ export function PreviewCard({ preview }: PreviewCardProps) {
       ) : null}
 
       <span className="preview__title">{preview.title}</span>
-      <div className="preview__desc">
+      <div className="preview__desc" style={descrBG}>
         <p className="preview__desc-text">{preview.description}</p>
       </div>
     </a>

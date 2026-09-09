@@ -9,7 +9,7 @@ type CreatePreviewStep1Props = PreviewDraft & {
   onNext: () => void
 }
 
-function CreatePreviewStep1({ title, href, onDraftChange, onNext }: CreatePreviewStep1Props) {
+export default function CreatePreviewStep1({ title, href, onDraftChange, onNext }: CreatePreviewStep1Props) {
   const handleNext = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     onNext()
@@ -54,4 +54,4 @@ function CreatePreviewStep1({ title, href, onDraftChange, onNext }: CreatePrevie
   )
 }
 
-export default CreatePreviewStep1
+

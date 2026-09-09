@@ -4,11 +4,11 @@ import { PreviewCard } from './PreviewCard'
 import { Link } from 'react-router-dom'
 type PreviewGridProps = {
   previews: Preview[]
+  tagId: string
   showCreateButton?: boolean
 }
 
-export function PreviewGrid({ previews, showCreateButton = false }: PreviewGridProps) {
-  // const navigate = useNavigate()
+export function PreviewGrid({ previews, tagId, showCreateButton = false }: PreviewGridProps) {
 
   return (
     <ul className="preview-grid">
@@ -20,7 +20,7 @@ export function PreviewGrid({ previews, showCreateButton = false }: PreviewGridP
       {showCreateButton ? (
         <li className="preview-grid__item">
           <Link
-            to="/create-preview"
+            to={`/tags/${tagId}/create-preview`}
             className="preview-grid__create"
             aria-label="Create a new preview"
             >
