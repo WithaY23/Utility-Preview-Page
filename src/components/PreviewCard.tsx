@@ -7,7 +7,7 @@ type PreviewCardProps = {
 
 export function PreviewCard({ preview }: PreviewCardProps) {
   const shellStyle: CSSProperties = {
-    backgroundColor: preview.backgroundColor,
+    backgroundColor: preview.backgroundType == 'color' ? preview.backgroundColor : '',
   }
   const descrBG: CSSProperties = {
     backgroundColor: preview.descriptionBgColor ? preview.descriptionBgColor : '',
@@ -22,7 +22,7 @@ export function PreviewCard({ preview }: PreviewCardProps) {
       style={shellStyle}
       aria-label={`${preview.title}: ${preview.description}`}
     >
-      {preview.backgroundImage ? (
+      {preview.backgroundType == 'image' ? (
         <img
           className="preview__image"
           src={preview.backgroundImage}

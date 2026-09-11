@@ -7,8 +7,9 @@ import { saveTagPreview } from '../data/tags'
 import { tagAnchorId } from '../util'
 import CreatePreviewStep1 from './CreatePreviewStep1'
 import CreatePreviewStep2 from './CreatePreviewStep2'
+import type { DistributiveOmit } from '../types/preview'
 
-type PreviewDraft = Omit<Preview, 'id'>
+type PreviewDraft = DistributiveOmit<Preview, 'id'>
 
 type CreatePreviewPageProps = {
   tags: Tag[]
@@ -23,14 +24,14 @@ function CreatePreviewPage({ tags, setTags }: CreatePreviewPageProps) {
     title: '',
     description: '',
     href: '',
-    backgroundImage: '',
-    backgroundColor: '',
-    descriptionBgColor: '#6C757D',
+    backgroundType: 'default',
+    // backgroundColor: '',
+    descriptionBgColor: '#000000',
   })
   const [currentStep, setCurrentStep] = useState<1 | 2>(1)
 
   const updateDraft = (updates: Partial<PreviewDraft>) => {
-    setDraft((currentDraft) => ({ ...currentDraft, ...updates }))
+    setDraft((currentDraft) => ({ ...currentDraft, ...updates }) as PreviewDraft)
   }
 
   useEffect(() => {

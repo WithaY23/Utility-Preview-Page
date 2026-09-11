@@ -1,8 +1,8 @@
 import type { FormEvent } from 'react'
 import type { Preview } from '../types/preview'
 import '../styles/CreatePreviewPage.css'
-
-type PreviewDraft = Omit<Preview, 'id'>
+import type { DistributiveOmit } from '../types/preview'
+type PreviewDraft = DistributiveOmit<Preview, 'id'>
 
 type CreatePreviewStep1Props = PreviewDraft & {
   onDraftChange: (updates: Partial<PreviewDraft>) => void

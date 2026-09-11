@@ -1,10 +1,11 @@
-import type { Preview } from '../types/preview'
-import { PreviewDisplay } from '../components/PreviewDisplay'
+import type { BackgroundConfig, DistributiveOmit, Preview } from '../types/preview'
+import { CreatePreviewDisplay } from '../components/CreatePreviewDisplay'
 import { BackgroundImageGallery } from '../components/BackgroundImageGallery'
 import { DescriptionSection } from '../components/DescriptionSection'
 import '../styles/CreatePreviewPage.css'
+// import type { PreviewOptions } from 'vite'
 
-type PreviewDraft = Omit<Preview, 'id'>
+type PreviewDraft = DistributiveOmit<Preview, 'id'>
 
 type CreatePreviewStep2Props = PreviewDraft & {
   onBack: () => void
@@ -12,51 +13,41 @@ type CreatePreviewStep2Props = PreviewDraft & {
   onDraftChange: (updates: Partial<PreviewDraft>) => void
 }
 
-function CreatePreviewStep2({
-  title,
-  description,
-  backgroundImage,
-  backgroundColor,
-  descriptionBgColor,
-  onBack,
-  onSave,
-  onDraftChange,
-}: CreatePreviewStep2Props) {
-  const previewData: Omit<Preview, 'id'> = {
-    title,
-    description,
-    href: '',
-    backgroundImage,
-    backgroundColor,
-    descriptionBgColor,
+function CreatePreviewStep2(props: CreatePreviewStep2Props) {
+  const { onBack, onSave, onDraftChange, ...draftProps } = props
+  const previewData: PreviewDraft = {
+    ...draftProps,
   }
 
   const handleImageSelect = (imagePath: string) => {
     onDraftChange({
-      backgroundImage: imagePath,
-      backgroundColor: '',
-    })
+    backgroundType: 'image',
+    backgroundImage: imagePath,
+  } as Preview)
   }
+
 
   const handleColorModeToggle = (useColor: boolean) => {
     if (useColor) {
       onDraftChange({
-        backgroundImage: '',
-        backgroundColor: '#6C757D'
-      })
+    backgroundType: 'color',
+    backgroundColor: '#6C757D'
+  } as Preview)
     }
     else{
       onDraftChange({
         // backgroundColor: '#6C757D',
+        backgroundType: 'image',
         backgroundImage: '1'
-      })
+      }as Preview)
     }
   }
 
   const handleColorChange = (color: string) => {
     onDraftChange({
-      backgroundColor: color,
-    })
+      backgroundType: 'color',
+      backgroundColor: color
+    } as Preview)
   }
 
   const handleDescriptionChange = (text: string) => {
@@ -70,7 +61,25 @@ function CreatePreviewStep2({
       descriptionBgColor: color,
     })
   }
-
+  const getBackgroundConfig = (draft: PreviewDraft): BackgroundConfig => {
+  switch (draft.backgroundType) {
+    case 'image':
+      return {
+        backgroundType: 'image',
+        backgroundImage: draft.backgroundImage,
+      }
+    case 'color':
+      return {
+        backgroundType: 'color',
+        backgroundColor: draft.backgroundColor,
+      }
+    case 'default':
+    default:
+      return {
+        backgroundType: 'default',
+      }
+  }
+}
   return (
     <section
       className="create-preview-step-2"
@@ -80,24 +89,26 @@ function CreatePreviewStep2({
 
       <div className="create-preview-step-2__content">
         <div className="create-preview-step-2__preview">
-          <PreviewDisplay preview={previewData} />
+          <CreatePreviewDisplay preview={previewData} />
         </div>
 
         <div className="create-preview-step-2__gallery">
           <BackgroundImageGallery
-            selectedImage={backgroundImage || null}
-            useColorBackground={!!backgroundColor && !backgroundImage}
-            backgroundColor={backgroundColor || '#6C757D'}
+            // selectedImage={backgroundType == 'image' ? {backgroundImage} as Preview : null}
+            // useColorBackground={!!backgroundColor && !backgroundImage}
+            // backgroundColor={backgroundColor || '#6C757D'}
+            backgroundConf = {getBackgroundConfig(draftProps)}
             onImageSelect={handleImageSelect}
             onColorModeToggle={handleColorModeToggle}
             onColorChange={handleColorChange}
+            
           />
         </div>
 
         <div className="create-preview-step-2__description">
           <DescriptionSection
-            description={description}
-            descriptionBgColor={descriptionBgColor || '#6C757D'}
+            description={props.description}
+            descriptionBgColor={props.descriptionBgColor || '#6C757D'}
             onDescriptionChange={handleDescriptionChange}
             onDescriptionBgColorChange={handleDescriptionBgColorChange}
           />

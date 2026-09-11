@@ -1,13 +1,13 @@
 import type { CSSProperties } from 'react'
-import type { Preview } from '../types/preview'
+import type { DistributiveOmit, Preview } from '../types/preview'
 
 type PreviewDisplayProps = {
-  preview: Omit<Preview, 'id'>
+  preview: DistributiveOmit<Preview, 'id'>
 }
 
-export function PreviewDisplay({ preview }: PreviewDisplayProps) {
+export function CreatePreviewDisplay({ preview }: PreviewDisplayProps) {
   const shellStyle: CSSProperties = {
-    backgroundColor: preview.backgroundColor,
+    backgroundColor:  preview.backgroundType == 'color' ? (preview.backgroundColor) : '',
   }
 
   const descStyle: CSSProperties = {
@@ -20,7 +20,7 @@ export function PreviewDisplay({ preview }: PreviewDisplayProps) {
         className="preview-display__card"
         style={shellStyle}
       >
-        {preview.backgroundImage ? (
+        {preview.backgroundType == 'image' ? (
           <img
             className="preview-display__image"
             src={preview.backgroundImage}
