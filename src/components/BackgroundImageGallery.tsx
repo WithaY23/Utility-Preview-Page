@@ -3,11 +3,11 @@ import { HexColorPicker } from 'react-colorful'
 import type { BackgroundConfig } from '../types/preview'
 
 const BACKGROUND_IMAGES = [
-  { name: 'game-controller', path: '/image_reference/previewBackground/297738_game-controller-icon.png' },
-  { name: 'jack-o-lantern', path: '/image_reference/previewBackground/340629_jack-o-lantern-icon.png' },
-  { name: 'broom', path: '/image_reference/previewBackground/340633_broom-icon.png' },
-  { name: 'witch-hat', path: '/image_reference/previewBackground/340634_witch-hat-icon.png' },
-  { name: 'witch', path: '/image_reference/previewBackground/340636_witch-icon.png' },
+  { name: 'game-controller', path: '/public/previewBackground/297738_game-controller-icon.png' },
+  { name: 'jack-o-lantern', path: '/public/previewBackground/340629_jack-o-lantern-icon.png' },
+  { name: 'broom', path: '/public/previewBackground/340633_broom-icon.png' },
+  { name: 'witch-hat', path: '/public/previewBackground/340634_witch-hat-icon.png' },
+  { name: 'witch', path: '/public/previewBackground/340636_witch-icon.png' },
 ]
 
 const IMAGES_PER_PAGE = 4

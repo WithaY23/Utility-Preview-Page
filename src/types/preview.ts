@@ -13,10 +13,17 @@ export type BackgroundConfig =
   // backgroundColor?: string
   // backgroundSetting: BackgroundConfig
   /** description box background color. Falls back to #6C757D. */
-  descriptionBgColor: string
+  descriptionBgColor?: string
 }
 export type Preview = BasePreview & BackgroundConfig
 
-export type DistributiveOmit<T, K extends keyof any> = T extends any
+export type DistributiveOmit<T, K extends PropertyKey> = T extends unknown
   ? Omit<T, K>
   : never;
+
+export type LocalApp = {
+  name: string
+  urlScheme: string
+  nestedUrlScheme: string
+  imageURL: string
+}
