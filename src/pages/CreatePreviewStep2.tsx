@@ -5,7 +5,7 @@ import { DescriptionSection } from '../components/DescriptionSection'
 import '../styles/CreatePreviewPage.css'
 // import type { PreviewOptions } from 'vite'
 
-type PreviewDraft = DistributiveOmit<Preview, 'id'>
+export type PreviewDraft = DistributiveOmit<Preview, 'id'>
 
 type CreatePreviewStep2Props = PreviewDraft & {
   onBack: () => void
@@ -97,6 +97,7 @@ function CreatePreviewStep2(props: CreatePreviewStep2Props) {
             // selectedImage={backgroundType == 'image' ? {backgroundImage} as Preview : null}
             // useColorBackground={!!backgroundColor && !backgroundImage}
             // backgroundColor={backgroundColor || '#6C757D'}
+            previewDraft = {draftProps}
             backgroundConf = {getBackgroundConfig(draftProps)}
             onImageSelect={handleImageSelect}
             onColorModeToggle={handleColorModeToggle}

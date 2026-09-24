@@ -1,14 +1,9 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import { HexColorPicker } from 'react-colorful'
 import type { BackgroundConfig } from '../types/preview'
-
-const BACKGROUND_IMAGES = [
-  { name: 'game-controller', path: '/public/previewBackground/297738_game-controller-icon.png' },
-  { name: 'jack-o-lantern', path: '/public/previewBackground/340629_jack-o-lantern-icon.png' },
-  { name: 'broom', path: '/public/previewBackground/340633_broom-icon.png' },
-  { name: 'witch-hat', path: '/public/previewBackground/340634_witch-hat-icon.png' },
-  { name: 'witch', path: '/public/previewBackground/340636_witch-icon.png' },
-]
+import { LOCAL_BACKGROUND_IMAGES, WEB_BACKGROUND_IMAGE_COUNT } from '../data/preview'
+import { apiErrorMessage, fetchPhotos } from '../server/api'
+import type { PreviewDraft } from '../pages/CreatePreviewStep2'
 
 const IMAGES_PER_PAGE = 4
 
@@ -16,6 +11,7 @@ type BackgroundImageGalleryProps = {
   // selectedImage: string | null
   // useColorBackground: boolean
   // backgroundColor: string
+  previewDraft: PreviewDraft
   backgroundConf: BackgroundConfig
   onImageSelect: (imagePath: string) => void
   onColorModeToggle: (useColor: boolean) => void
@@ -24,23 +20,63 @@ type BackgroundImageGalleryProps = {
 }
 
 export function BackgroundImageGallery({
-  // selectedImage,
-  // useColorBackground,
-  // backgroundColor,
+  previewDraft,
   backgroundConf,
   onImageSelect,
   onColorModeToggle,
   onColorChange
 }: BackgroundImageGalleryProps) {
   const [page, setPage] = useState(0)
-
-  const maxPages = Math.ceil(BACKGROUND_IMAGES.length / IMAGES_PER_PAGE)
+  const [backgroundImages, setBackgroundImages] = useState(LOCAL_BACKGROUND_IMAGES)
+  useEffect(() =>
+  {
+    const fetchData = async() =>
+    {
+      try{
+        const unsplashBGPhotos = await fetchPhotos(previewDraft.title)
+        if(unsplashBGPhotos.length == 0)
+        {
+          console.log('no images received')
+        }
+        else if((unsplashBGPhotos[0] == apiErrorMessage))
+        {
+          console.log(apiErrorMessage)
+        }
+        else
+        {
+          console.log( unsplashBGPhotos.length, ' images received')
+          const dataImages = unsplashBGPhotos.map((v,index ) => ({name: String(index) + v, path:v }))
+          setBackgroundImages((prev) =>[...prev, ...dataImages])
+        }
+      }
+      catch(error)
+      {
+        console.error('error getting background photo', error)
+      }
+      
+    }
+    fetchData()
+    return () => {
+      console.log('i"m being remoovveedddd')
+      setBackgroundImages(LOCAL_BACKGROUND_IMAGES)
+    }
+  }, [])
+  // promise api call to get more images in Promise dummy
+  
+  const maxPages = Math.ceil(backgroundImages.length / IMAGES_PER_PAGE)
   const startIdx = page * IMAGES_PER_PAGE
   const endIdx = startIdx + IMAGES_PER_PAGE
-  const visibleImages = BACKGROUND_IMAGES.slice(startIdx, endIdx)
-  
+
   const hasNextPage = page + 1 < maxPages
   const hasPrevPage = page > 0
+
+  // get data from dummy in data[] = await dummy
+  // put images in front via setBackgroundImages(...data, ...backgroundImages)
+  // replace local with new bckgImg var
+
+  const visibleImages = backgroundImages.slice(startIdx, endIdx)
+  
+  
 
   const handleImageSelect = (imagePath: string) => {
     onColorModeToggle(false)
