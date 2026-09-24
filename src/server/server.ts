@@ -9,13 +9,13 @@ import type { ApiResponse, ResponseGetSearchUQ } from '../types/server.ts';
 
 const app: Express = express();
 app.set('query parser', 'extended');
-app.use(cors()); // Allow frontend requests
-app.use(express.json()); // Parse JSON bodies
+app.use(cors()); 
+app.use(express.json()); 
 
-const UNSPLASH_KEY = process.env.UNSPLASH_ACCESS_KEY; // never in frontend code
+const UNSPLASH_KEY = process.env.UNSPLASH_ACCESS_KEY; 
 const serverApi = createApi({
   accessKey: UNSPLASH_KEY,
-  //...other fetch options
+
 });
 app.get('/', (req: Request, res: Response) => {
   res.send('hello world');
