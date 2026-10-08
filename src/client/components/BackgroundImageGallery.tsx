@@ -1,8 +1,8 @@
 import { useState,useEffect } from 'react'
 import { HexColorPicker } from 'react-colorful'
 import type { BackgroundConfig } from '../types/preview'
-import { LOCAL_BACKGROUND_IMAGES, WEB_BACKGROUND_IMAGE_COUNT } from '../data/preview'
-import { apiErrorMessage, fetchPhotos } from '../server/api'
+import { LOCAL_BACKGROUND_IMAGES } from '../data/preview'
+import { apiErrorMessage, fetchPhotos } from '../../server/api'
 import type { PreviewDraft } from '../pages/CreatePreviewStep2'
 
 const IMAGES_PER_PAGE = 4
@@ -45,7 +45,7 @@ export function BackgroundImageGallery({
         else
         {
           console.log( unsplashBGPhotos.length, ' images received')
-          const dataImages = unsplashBGPhotos.map((v,index ) => ({name: String(index) + v, path:v }))
+          const dataImages = unsplashBGPhotos.map((v:string,index:number ) => ({name: String(index) + v, path:v }))
           setBackgroundImages((prev) =>[...prev, ...dataImages])
         }
       }
@@ -60,7 +60,7 @@ export function BackgroundImageGallery({
       console.log('i"m being remoovveedddd')
       setBackgroundImages(LOCAL_BACKGROUND_IMAGES)
     }
-  }, [])
+  })
   // promise api call to get more images in Promise dummy
   
   const maxPages = Math.ceil(backgroundImages.length / IMAGES_PER_PAGE)

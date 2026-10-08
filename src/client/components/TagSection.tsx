@@ -6,7 +6,7 @@ import {
 import type { Tag } from '../types/tag'
 import { PreviewGrid } from './PreviewGrid'
 import { useNavigate } from 'react-router-dom'
-import { tagAnchorId } from  '../util'
+import { tagAnchorId } from  '../util.tsx'
 type TagSectionProps = {
   tag: Tag
 }

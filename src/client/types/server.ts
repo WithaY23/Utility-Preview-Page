@@ -1,10 +1,10 @@
 // import express, { type Express, type Request, type Response } from 'express';
-type ResponseUnsplashQuery = {
-    res: {
-        r: Response,
-        query: string
-    }
-}
+// type ResponseUnsplashQuery = {
+//     res: {
+//         r: Response,
+//         query: string
+//     }
+// }
 export type ResponseGetSearchUQ = string[]
 
 

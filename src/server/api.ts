@@ -1,5 +1,5 @@
-import axios, { AxiosError } from 'axios';
-import type { ApiResponse, ResponseGetSearchUQ } from '../types/server.ts';
+import axios from 'axios';
+import type { ApiResponse, ResponseGetSearchUQ } from '../client/types/server.ts';
 
 
 export const apiClient = axios.create({

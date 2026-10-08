@@ -28,7 +28,7 @@ export function saveTagPreview(
     console.error(`Cannot save preview: tag "${tagId}" was not found.`)
     return tags
   }
-
+  console.log(tagId, "is adding", previewDraft)
   return tags.map((tag) =>
     tag.id === tagId
       ? { ...tag, previews: [...tag.previews, preview(previewDraft)] }
@@ -160,6 +160,27 @@ const toolsPreviews: Preview[] = [
   }),
 ]
 
+
+export function createTagsData()
+{
+  return [
+  {
+    id: '1',
+    name: 'Tools',
+    previews: toolsPreviews,
+  },
+  {
+    id: '2',
+    name: 'Docs',
+    previews: docsPreviews,
+  },
+  {
+    id: '3',
+    name: 'Docs2',
+    previews: docsPreviews.slice(0, 6),
+  }
+  ]
+}
 export const TAGS: Tag[] = [
   {
     id: '1',

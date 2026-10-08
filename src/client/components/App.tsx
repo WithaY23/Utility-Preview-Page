@@ -6,6 +6,7 @@ import SearchTags from '../pages/SearchTags'
 import CreateTagPage from '../pages/CreateTagPage'
 import CreatePreviewPage from '../pages/CreatePreviewPage'
 import type { Tag } from '../types/tag'
+// import AccountModalContainer from './AccountModalContainer'
 
 function App() {
   const [tags, setTags] = useState<Tag[]>(TAGS)
@@ -20,6 +21,10 @@ function App() {
           path="/tags/:tagId/create-preview"
           element={<CreatePreviewPage tags={tags} setTags={setTags} />}
         />
+        {/* <Route
+        path='/account'
+        element = {<AccountModalContainer />}
+        /> */}
       </Routes>
     </BrowserRouter>
   )

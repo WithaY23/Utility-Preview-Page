@@ -1,11 +1,14 @@
 import 'dotenv/config';
 import express, { type Express, type Request, type Response } from 'express';
 import { createApi } from "unsplash-js";
-import { WEB_BACKGROUND_IMAGE_COUNT, WEB_BACKGROUND_SIZE } from '../data/preview.ts';
+import { WEB_BACKGROUND_IMAGE_COUNT, WEB_BACKGROUND_SIZE } from '../client/data/preview.ts';
 // import fetch from 'node-fetch';
 import cors from 'cors';
-import type { ApiResponse, ResponseGetSearchUQ } from '../types/server.ts';
-
+import type { ApiResponse, ResponseGetSearchUQ } from '../client/types/server.ts';
+import { SECRET_KEY, users } from '../client/data/login.ts';
+import { hashPassword, verifyPassword } from './login.ts';
+import jwt, { type Jwt } from 'jsonwebtoken';
+import { error } from 'console';
 
 const app: Express = express();
 app.set('query parser', 'extended');
@@ -17,7 +20,7 @@ const serverApi = createApi({
   accessKey: UNSPLASH_KEY,
 
 });
-app.get('/', (req: Request, res: Response) => {
+app.get('/', (res: Response) => {
   res.send('hello world');
 });
 
@@ -57,6 +60,48 @@ app.get('/api/unsplash/search/photos', async(req: Request, res: Response<ApiResp
   }
   
 });
+app.get('/account/user', async(req:Request, res: Response) =>
+{
+  const token: string = req.body
+  try{
+    const payload = jwt.verify(token, SECRET_KEY) as jwt.JwtPayload
+    const user = users.find(user => user.email === payload.email)
+    if(!user)
+    {
+      return res.status(401).json({error: 'No user found with that email'})
+    }
+    res.json(user.siteConfig)
+    }
+  catch(err)
+    {
+      if(err === 'TokenExpiredError')
+      {
+        return res.status(401).json({error: 'Expired token, login again'})
+      }
+      return res.status(400).json({error: 'Error verifying token'})
+    }
+} )
+app.post('/account/login', async(req:Request, res: Response) =>
+{
+  const {username: email, password} = req.body
+  const user = users.find((user) => user.email === email)
+  if(!user)
+  {
+    return res.status(401).json({error: 'Invalid username'})
+  }
+
+  if(!verifyPassword(password,user.password))
+  {
+    return res.status(403).json({error: 'Invalid username/password'})
+  }
+  
+  const token = jwt.sign(
+    {email: email}, SECRET_KEY, {expiresIn: '1h'}
+  )
+  // sessionMap.set()
+  res.json(token)
+})
+app.get
 
 app.listen(3001);
 

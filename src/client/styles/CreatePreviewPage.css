@@ -193,6 +193,161 @@
   transform: translateY(1px);
 }
 
+.login-modal {
+  position: fixed;
+  z-index: var(--z-modal-backdrop);
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  background: rgba(5, 12, 28, 0.72);
+}
+
+.login-modal__panel {
+  position: relative;
+  width: min(100%, 28rem);
+  box-sizing: border-box;
+  padding: 2rem 2.5rem 1.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.4rem;
+  background: #20376f;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.32);
+}
+
+.login-modal__panel h2 {
+  margin: 0;
+  color: var(--text-h);
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.login-modal__switch {
+  margin: 1rem 0 0;
+  color: rgba(227, 232, 242, 0.86);
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.login-modal__switch-button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-p1);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.login-modal__switch-button:hover {
+  color: #c8d2df;
+}
+
+.login-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  width: min(100%, 19rem);
+  margin: 1.35rem auto 0;
+}
+
+.login-modal__label {
+  color: rgba(227, 232, 242, 0.86);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.login-modal__input {
+  width: 100%;
+  min-height: 2.35rem;
+  box-sizing: border-box;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid rgba(209, 214, 222, 0.32);
+  border-radius: 0.25rem;
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text-p1);
+  font: inherit;
+  font-size: 0.8rem;
+}
+
+.login-modal__input:focus-visible,
+.login-modal__remember input:focus-visible {
+  outline: 2px solid rgba(191, 219, 254, 0.95);
+  outline-offset: 2px;
+}
+
+.login-modal__remember {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: rgba(227, 232, 242, 0.86);
+  font-size: 0.72rem;
+}
+
+.login-modal__remember input {
+  width: 0.9rem;
+  height: 0.9rem;
+  margin: 0;
+  accent-color: #c8d2df;
+}
+
+.login-modal__close {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.45rem;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0.35rem;
+  background: transparent;
+  color: var(--text-p1);
+  cursor: pointer;
+  font: inherit;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.login-modal__close:hover,
+.login-modal__close:focus-visible {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.login-modal__close:focus-visible,
+.login-modal__submit:focus-visible,
+.login-modal__switch-button:focus-visible {
+  outline: 2px solid rgba(191, 219, 254, 0.95);
+  outline-offset: 2px;
+}
+
+.login-modal__submit {
+  align-self: center;
+  min-width: 5.25rem;
+  margin-top: 0.6rem;
+  padding: 0.55rem 0.95rem;
+  border: 0;
+  border-radius: 0.3rem;
+  background: #c8d2df;
+  color: #0f172a;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.login-modal__submit:hover {
+  opacity: 0.96;
+}
+
+.login-modal__submit:active {
+  transform: translateY(1px);
+}
+
 .local-app-modal {
   position: fixed;
   z-index: 10;
@@ -392,6 +547,10 @@
 
   .local-app-modal__panel {
     min-height: 16rem;
+    padding-inline: 1.25rem;
+  }
+
+  .login-modal__panel {
     padding-inline: 1.25rem;
   }
 }

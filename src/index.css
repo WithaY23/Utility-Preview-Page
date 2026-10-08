@@ -4,6 +4,11 @@
   --text: #e5e5e5;
   --text-h: #ffffff;
   --text-p1: #e5e5e5;
+  --z-dropdown: 10;
+  --z-sticky-nav: 20;
+  --z-modal-backdrop: 30;
+  --z-modal-content: 40;
+  --z-toast: 50;
   --bg: #14213d;
   --border: #2c2c2c;
   --shadow:

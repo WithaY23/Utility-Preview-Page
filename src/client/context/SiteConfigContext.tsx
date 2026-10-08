@@ -3,7 +3,7 @@
 import { createContext, use, useState } from 'react'
 import type { ReactNode } from 'react'
 
-interface SiteConfig {
+export interface SiteConfig {
   siteName: string
   logoUrl: string
   avatarUrl: string
