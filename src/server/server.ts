@@ -6,9 +6,9 @@ import { WEB_BACKGROUND_IMAGE_COUNT, WEB_BACKGROUND_SIZE } from '../client/data/
 import cors from 'cors';
 import type { ApiResponse, ResponseGetSearchUQ } from '../client/types/server.ts';
 import { SECRET_KEY, users } from '../client/data/login.ts';
-import { hashPassword, verifyPassword } from './login.ts';
-import jwt, { type Jwt } from 'jsonwebtoken';
-import { error } from 'console';
+import { verifyPassword } from './login.ts';
+import jwt from 'jsonwebtoken';
+
 
 const app: Express = express();
 app.set('query parser', 'extended');
@@ -70,7 +70,8 @@ app.get('/account/user', async(req:Request, res: Response) =>
     {
       return res.status(401).json({error: 'No user found with that email'})
     }
-    res.json(user.siteConfig)
+    res.json({email: user.email, 
+      userPersonalization: user.userPersonalization})
     }
   catch(err)
     {
@@ -83,25 +84,32 @@ app.get('/account/user', async(req:Request, res: Response) =>
 } )
 app.post('/account/login', async(req:Request, res: Response) =>
 {
-  const {username: email, password} = req.body
+  const {email, password} = req.body
   const user = users.find((user) => user.email === email)
+  console.log('user pasword', user?.password)
+
   if(!user)
   {
     return res.status(401).json({error: 'Invalid username'})
   }
+  console.log('user pasword', user.password)
 
-  if(!verifyPassword(password,user.password))
+  const isVerified = await verifyPassword(password,user.password)
+  // const randomVer = await verifyPassword('a','b')
+  // console.log('verified password', isVerified, randomVer)
+  if(!(isVerified))
   {
     return res.status(403).json({error: 'Invalid username/password'})
   }
   
   const token = jwt.sign(
-    {email: email}, SECRET_KEY, {expiresIn: '1h'}
+    {email : email}, SECRET_KEY, {expiresIn: '1h'}
   )
+  const relevantUserData = {email: user.email, userPersonalization: user.userPersonalization}
   // sessionMap.set()
-  res.json(token)
+  res.json({token: token, user: relevantUserData})
 })
-app.get
+
 
 app.listen(3001);
 

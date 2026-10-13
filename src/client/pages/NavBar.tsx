@@ -1,11 +1,13 @@
 import '../styles/NavBar.css'
-import { useSiteConfig } from '../context/SiteConfigContext'
+// import { useSiteConfig } from '../context/SiteConfigContext'
 import { NavLink, Link } from 'react-router-dom'
 import { useAuthModal } from '../util'
 import AccountModalContainer from '../components/AccountModalContainer'
+import { useUser } from '../context/UserConfigContext'
 
 export default function NavBar() {
-  const { config } = useSiteConfig()
+  // const { config } = useSiteConfig()
+  const { user } = useUser()
   // const authStatement = "auth=signin"
   const {setAuthParam} = useAuthModal()
   return (
@@ -14,7 +16,7 @@ export default function NavBar() {
           to="/"
           className="navbar__logo"
         >
-          {config.siteName}
+          {user?.userPersonalization.siteConfig.siteName}
         </Link>
       <nav className="navbar__actions" aria-label="Primary navigation">
         <div className="navbar__create-group">

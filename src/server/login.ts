@@ -5,5 +5,11 @@ export async function hashPassword(v: string): Promise<string> {
 }
 export async function verifyPassword(unhashed:string, hashed:string) : Promise<Boolean>
 {
-    return (await hashPassword(unhashed)) == hashed
+  try {
+    
+    return await argon2.verify(hashed, unhashed);
+  } catch (err) {
+    console.error('Error verifying password:', err);
+    return false;
+  }
 }

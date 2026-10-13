@@ -6,6 +6,7 @@ import NavBar from './NavBar'
 import type { Tag } from '../types/tag'
 // import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom';
+import { useUser } from '../context/UserConfigContext'
 
 
 type HomePageProps = {
@@ -14,13 +15,13 @@ type HomePageProps = {
 
 function HomePage({ tags }: HomePageProps) {
   const homeTags = tagsForHome(tags)
-  // const navigate = useNavigate()
+  const {user} = useUser()
 
   return (
     <div className="home">
       <NavBar/>
       <section className="home__hero" aria-labelledby="home-title">
-        <h1 id="home-title">?(Logo Title)</h1>
+        <h1 id="home-title">{user?.userPersonalization.siteConfig.siteName}</h1>
         <p className="home__subtext">?(With Subtext)</p>
       </section>
 
